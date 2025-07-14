@@ -18,7 +18,7 @@
 ### Prerequisites 
 Make sure you have installed **nodejs** and **npm** installed
 
-##Installation
+## Installation
 
 ```bash
 git clone https://github.com/mekariyas/note-app.git
