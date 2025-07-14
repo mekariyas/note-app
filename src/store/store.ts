@@ -1,6 +1,7 @@
 import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
-type Notes= {
+type Notes = {
     id: string, 
     title: string,
     body: string
@@ -12,10 +13,11 @@ type State = {
 
 type Actions = {
     addNote:(id : string, title: string, body: string)=> void,
-    deleteNote: (id: string)=>void
+    deleteNote: (id: string)=>void,
+    editNotes: (newNotes: Notes[]) => void
 }
 
-const useNoteStore = create<State & Actions>((set)=>({
+const useNoteStore = create<State & Actions>(persist((set)=>({
     notes: [],
     addNote:(id, title, body)=>{
         const newNote = {id, title, body}
@@ -27,7 +29,15 @@ const useNoteStore = create<State & Actions>((set)=>({
         set((state)=>({
             notes: state.notes.filter(note=> note.id !== id)
         }))
-    }
+    },
+    editNotes: (newNotes) => {
+        set(() => ({
+          notes: [...newNotes],
+        }));
+      },
+    }),
+    {
+    name: "note-store"
 }))
 
 
