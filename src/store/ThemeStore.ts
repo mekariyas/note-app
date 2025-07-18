@@ -10,7 +10,9 @@ type Action = {
     setIsDark:(theme: boolean)=> void
 }
 
-const useThemeStore = create<State & Action>(persist((set)=>({
+type Store = State & Action
+
+const useThemeStore = create<Store>()(persist((set)=>({
     isDark: false,
     setIsDark:(theme)=>set(()=>({isDark: theme}))
 }),{

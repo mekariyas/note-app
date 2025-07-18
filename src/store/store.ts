@@ -17,7 +17,9 @@ type Actions = {
     editNotes: (newNotes: Notes[]) => void
 }
 
-const useNoteStore = create<State & Actions>(persist((set)=>({
+type Store = State & Actions
+
+const useNoteStore = create<Store>()(persist((set)=>({
     notes: [],
     addNote:(id, title, body)=>{
         const newNote = {id, title, body}
